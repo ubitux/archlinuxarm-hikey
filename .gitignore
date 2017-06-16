@@ -1,0 +1,10 @@
+/android-core
+/ArchLinuxARM-aarch64-latest.tar.gz
+/e2fsprogs
+/ext2simg
+/hikey-boot-linux-*
+/hisi-idt.py
+/l-loader.bin
+/ptable-linux-8g.img
+/rootfs.img
+/rootfs.raw
