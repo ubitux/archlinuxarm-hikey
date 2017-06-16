@@ -7,7 +7,7 @@ all: prepare
 
 
 #
-# ext2sim
+# ext2simg
 #
 android-core:
 	git clone https://android.googlesource.com/platform/system/core $@
