@@ -67,12 +67,11 @@ $(BOOT_IMG).gz:
 # Root FS building
 #
 
-ROOTFS_BUILD_REQUIREMENTS = ext2simg $(ARCH_TARBALL)
 ROOTFS_RAW = rootfs.raw
 ROOTFS_IMG = rootfs.img
 IMG_SIZE = 7199505920 # 14061535 sectors of 512B (~6.7G)
 MOUNT_POINT = rootfs_mnt
-$(ROOTFS_IMG): $(ROOTFS_BUILD_REQUIREMENTS)
+$(ROOTFS_RAW): $(ARCH_TARBALL)
 	fallocate -l $(IMG_SIZE) $(ROOTFS_RAW)
 	mkfs.ext4 -L rootfs $(ROOTFS_RAW)
 	mkdir -p $(MOUNT_POINT)
@@ -83,6 +82,8 @@ $(ROOTFS_IMG): $(ROOTFS_BUILD_REQUIREMENTS)
 	sudo cp grub.cfg $(MOUNT_POINT)/boot/grub
 	sudo umount $(MOUNT_POINT) || true
 	rmdir $(MOUNT_POINT) || true
+
+$(ROOTFS_IMG): ext2simg $(ROOTFS_RAW)
 	./ext2simg $(ROOTFS_RAW) $(ROOTFS_IMG)
 
 rootfs: $(ROOTFS_IMG)
@@ -100,7 +101,7 @@ flash: $(FLASH_REQUIREMENTS_DOWNLOADS) $(ROOTFS_IMG)
 	fastboot flash boot $(BOOT_IMG)
 	fastboot flash system $(ROOTFS_IMG)
 
-prepare: $(ROOTFS_BUILD_REQUIREMENTS) $(FLASH_REQUIREMENTS_DOWNLOADS)
+prepare: $(ROOTFS_IMG) $(FLASH_REQUIREMENTS_DOWNLOADS)
 
 serial:
 	miniterm.py --raw --eol=lf $(SERIAL_DEVICE) 115200
