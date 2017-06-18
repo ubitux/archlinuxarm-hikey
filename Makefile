@@ -17,16 +17,23 @@ e2fsprogs:
 
 LIBSPARSE_DIR = android-core/libsparse
 EXT2SIMG_DIR = e2fsprogs/contrib/android
-EXT2SIMG_OBJS = $(LIBSPARSE_DIR)/backed_block.o           \
-                $(LIBSPARSE_DIR)/output_file.o            \
-                $(LIBSPARSE_DIR)/sparse.o                 \
-                $(LIBSPARSE_DIR)/sparse_crc32.o           \
-                $(EXT2SIMG_DIR)/ext2simg.o
+
+EXT2SIMG_SRC = $(EXT2SIMG_DIR)/ext2simg.c
+EXT2SIMG_SRC_SPARSE = $(LIBSPARSE_DIR)/backed_block.c           \
+                      $(LIBSPARSE_DIR)/output_file.c            \
+                      $(LIBSPARSE_DIR)/sparse.c                 \
+                      $(LIBSPARSE_DIR)/sparse_crc32.c           \
+
+EXT2SIMG_SRC_ALL = $(EXT2SIMG_SRC) $(EXT2SIMG_SRC_SPARSE)
+EXT2SIMG_OBJS = $(EXT2SIMG_SRC_ALL:.c=.o)
+
+$(EXT2SIMG_SRC_SPARSE): android-core
+$(EXT2SIMG_SRC): e2fsprogs
 
 ext2simg: CFLAGS = -Wall -O2 -I$(LIBSPARSE_DIR)/include
 ext2simg: LDLIBS = -lz -lext2fs -lcom_err
-ext2simg: android-core e2fsprogs $(EXT2SIMG_OBJS)
-	$(CC) $(LDFLAGS) $(EXT2SIMG_OBJS) $(LDLIBS) -o $@
+ext2simg: $(EXT2SIMG_OBJS)
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 
 #
