@@ -1,6 +1,7 @@
 SERIAL_DEVICE = /dev/ttyUSB0
 PYTHON = python2
 WGET = wget
+MINITERM = miniterm.py
 
 
 all: prepare
@@ -104,6 +105,6 @@ flash: $(FLASH_REQUIREMENTS_DOWNLOADS) $(ROOTFS_IMG)
 prepare: $(ROOTFS_IMG) $(FLASH_REQUIREMENTS_DOWNLOADS)
 
 serial:
-	miniterm.py --raw --eol=lf $(SERIAL_DEVICE) 115200
+	$(MINITERM) --raw --eol=lf $(SERIAL_DEVICE) 115200
 
 .PHONY: all rootfs flash prepare serial
