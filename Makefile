@@ -76,12 +76,12 @@ $(ROOTFS_IMG): $(ROOTFS_BUILD_REQUIREMENTS)
 	fallocate -l $(IMG_SIZE) $(ROOTFS_RAW)
 	mkfs.ext4 -L rootfs $(ROOTFS_RAW)
 	mkdir -p $(MOUNT_POINT)
-	umount $(MOUNT_POINT) || true
-	mount $(ROOTFS_RAW) $(MOUNT_POINT)
-	bsdtar -xpf $(ARCH_TARBALL) -C $(MOUNT_POINT)
-	mkdir -p $(MOUNT_POINT)/boot/grub
-	cp grub.cfg $(MOUNT_POINT)/boot/grub
-	umount $(MOUNT_POINT) || true
+	sudo umount $(MOUNT_POINT) || true
+	sudo mount $(ROOTFS_RAW) $(MOUNT_POINT)
+	sudo bsdtar -xpf $(ARCH_TARBALL) -C $(MOUNT_POINT)
+	sudo mkdir -p $(MOUNT_POINT)/boot/grub
+	sudo cp grub.cfg $(MOUNT_POINT)/boot/grub
+	sudo umount $(MOUNT_POINT) || true
 	rmdir $(MOUNT_POINT) || true
 	./ext2simg $(ROOTFS_RAW) $(ROOTFS_IMG)
 
