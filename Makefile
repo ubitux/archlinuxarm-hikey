@@ -105,4 +105,7 @@ prepare: $(ROOTFS_IMG) $(FLASH_REQUIREMENTS_DOWNLOADS)
 serial:
 	$(MINITERM) --raw --eol=lf $(SERIAL_DEVICE) 115200
 
-.PHONY: all flash prepare serial
+clean:
+	$(RM) $(ROOTFS_RAW) $(ROOTFS_IMG) ext2simg $(EXT2SIMG_OBJS)
+
+.PHONY: all flash prepare serial clean
