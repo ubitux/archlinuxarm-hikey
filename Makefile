@@ -10,10 +10,10 @@ all: prepare
 # ext2simg
 #
 android-core:
-	git clone https://android.googlesource.com/platform/system/core $@
+	git clone --depth 1 https://android.googlesource.com/platform/system/core $@
 
 e2fsprogs:
-	git clone git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git $@
+	git clone --depth 1 git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git $@
 
 LIBSPARSE_DIR = android-core/libsparse
 EXT2SIMG_DIR = e2fsprogs/contrib/android
