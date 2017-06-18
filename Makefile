@@ -87,8 +87,6 @@ $(ROOTFS_RAW): $(ARCH_TARBALL)
 $(ROOTFS_IMG): ext2simg $(ROOTFS_RAW)
 	./ext2simg $(ROOTFS_RAW) $(ROOTFS_IMG)
 
-rootfs: $(ROOTFS_IMG)
-
 
 #
 # Flashing on the emmc
@@ -105,4 +103,4 @@ flash: $(FLASH_REQUIREMENTS_DOWNLOADS) $(ROOTFS_IMG)
 serial:
 	$(MINITERM) --raw --eol=lf $(SERIAL_DEVICE) 115200
 
-.PHONY: all rootfs flash serial
+.PHONY: all flash serial
