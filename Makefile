@@ -10,6 +10,7 @@ all: prepare
 #
 # ext2simg
 #
+
 android-core:
 	git clone --depth 1 https://android.googlesource.com/platform/system/core $@
 
@@ -100,6 +101,11 @@ flash: $(FLASH_REQUIREMENTS_DOWNLOADS) $(ROOTFS_IMG)
 	fastboot flash boot $(BOOT_IMG)
 	fastboot flash system $(ROOTFS_IMG)
 
+
+#
+# Misc rules
+#
+
 prepare: $(ROOTFS_IMG) $(FLASH_REQUIREMENTS_DOWNLOADS)
 
 serial:
@@ -107,5 +113,6 @@ serial:
 
 clean:
 	$(RM) $(ROOTFS_RAW) $(ROOTFS_IMG) ext2simg $(EXT2SIMG_OBJS)
+
 
 .PHONY: all flash prepare serial clean
