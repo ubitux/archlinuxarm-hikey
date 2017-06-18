@@ -4,7 +4,7 @@ WGET = wget
 MINITERM = miniterm.py
 
 
-all: prepare
+all: $(ROOTFS_IMG) $(FLASH_REQUIREMENTS_DOWNLOADS)
 
 
 #
@@ -102,9 +102,7 @@ flash: $(FLASH_REQUIREMENTS_DOWNLOADS) $(ROOTFS_IMG)
 	fastboot flash boot $(BOOT_IMG)
 	fastboot flash system $(ROOTFS_IMG)
 
-prepare: $(ROOTFS_IMG) $(FLASH_REQUIREMENTS_DOWNLOADS)
-
 serial:
 	$(MINITERM) --raw --eol=lf $(SERIAL_DEVICE) 115200
 
-.PHONY: all rootfs flash prepare serial
+.PHONY: all rootfs flash serial
