@@ -20,7 +20,7 @@ Run `make`.
 
 Note: running with jobs is supported.
 
-Flashing the image on the emmc
+Flashing the image on the eMMC
 ==============================
 
 - Make sure you created the root FS image with `make`
