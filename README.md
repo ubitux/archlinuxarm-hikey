@@ -7,6 +7,7 @@ Dependencies
 - `make`
 - `git`
 - `sudo`
+- `wget`
 - `bsdtar` (`libarchive`)
 - `python2`
 - `fastboot` (`android-tools`)
